@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Dashboard Admin — Prodi S1 Kewirausahaan</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script>
+  if (localStorage.getItem("sessionLogin") !== "true") {
+    window.location.href = "login.html";
+  }
+
+  let idleTimer;
+  function resetIdle(){
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(()=> {
+      localStorage.removeItem("sessionLogin");
+      window.location.href = "login.html";
+    }, 5 * 60 * 1000);
+  }
+
+  window.onload = resetIdle;
+  window.onmousemove = resetIdle;
+  window.onkeydown = resetIdle;
+  window.ontouchstart = resetIdle;
+</script>
+  <!-- Particle background canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">KWU</div>
+      <div class="brand-text">
+        <div class="small">Program Studi</div>
+        <div class="big">S1 Kewirausahaan</div>
+        <div class="big">Kode : 94202</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-btn" onclick="openLink('https://sains.universitaspahlawan.ac.id/prodi/dashboard')">Sains Prodi S1 KWU</button>
+      <button class="nav-btn" onclick="openLink('https://sains.universitaspahlawan.ac.id/prodi/mahasiswa')">Mahasiswa</button>
+      <button class="nav-btn" onclick="openLink('https://sister.kemdikbud.go.id/beranda')">Sister</button>
+      <button class="nav-btn" onclick="openLink('https://pddikti.kemdiktisaintek.go.id/detail-prodi/LC3PoTCDnilUsRZRuSwPrL6veeGgQ8iVpkjYVogxviI-WGZWNd7YhNDf1__9gy6GZwLt4w==')">PDDikti Prodi</button>
+      <hr>
+      <button class="nav-btn doc" onclick="openLink('https://docs.google.com/spreadsheets/d/1koUO3TjsHOIG3F2CiKgVAnokjr86mUbF5sVfCmsqUgc/edit?usp=sharing')">Daftar Dosen</button>
+      <button class="nav-btn drive" onclick="openLink('https://drive.google.com/drive/my-drive')">Google Drive</button>
+      <hr>
+      <button class="nav-btn ghost" onclick="openLink('https://classroom.google.com')">Google Classroom</button>
+      <hr>
+      <hr>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div id="clock-small" class="clock-small">--:--:--</div>
+      <div class="copyright">FEB • UPTT</div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="welcome">
+        <h1>Dashboard Administrasi</h1>
+        <h1>Prodi S1 Kewirausahaan FEB - UPTT</h1>
+        <p class="sub">Akreditasi : Baik</p>
+        <p class="sub">SK Selenggara : 1197/KPT/I/2018</p>
+        <p class="sub">Tanggal SK Selenggara & Tanggal Berdiri : 28 Desember 2018</p>
+        <p class="admin-name">Admin : Nazmul Irfandi</p>
+      </div>
+
+      <div class="top-right">
+        <div id="datetime" class="datetime">Memuat...</div>
+        <button class="cta" onclick="openLink('https://wa.me/6281225973682?')">Pesan ke Kaprodi</button>
+        <button class="cta" onclick="logout()">Keluar</button>
+        <button id="theme-toggle" class="cta">🌙</button>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card glass">
+        <div class="card-title">Formulir Penelitian Mahasiswa</div>
+        <div class="card-body">
+          <button onclick="openLink('https://forms.gle/aHBnutEtPygn2dVQ8')">Permohonan Undangan Sem-Pro</button>
+          <button onclick="openLink('https://forms.gle/s7rFciUweaJywBUz7')">Permohonan Izin Penelitian</button>
+          <button onclick="openLink('https://forms.gle/FXedQHEieQjS7maQA')">Permohonan Undangan Sem-Has</button>
+        </div>
+      </div>
+
+      <div class="card glass">
+        <div class="card-title">Google Drive</div>
+        <div class="card-body">
+          <button class="drive" onclick="openLink('https://drive.google.com/drive/folders/surat-menyurat')">Folder Surat Menyurat</button>
+          <button class="drive" onclick="openLink('https://drive.google.com/drive/folders/dokumen-peserta')">Dokumen Peserta TA</button>
+        </div>
+      </div>
+
+      <div class="card glass">
+        <div class="card-title">Formulir Dosen</div>
+        <div class="card-body">
+          <button class="doc" onclick="openLink('https://forms.gle/VgycyDi7NdA2HGuX6')">Permohonan Dosen Pengajar</button>
+          <button class="doc" onclick="openLink('https://docs.google.com/document/permohonan-template')">Template Permohonan</button>
+        </div>
+      </div>
+
+      <div class="card glass">
+        <div class="card-title">Administrasi Surat Dosen (PDF-Drive)</div>
+        <div class="card-body">
+          <button onclick="openLink('https://drive.google.com/drive/folders/1DsBYO7VLjJ0z6mQB790uVXA6gU41VYuJ?usp=drive_link')">Surat Permohonan Dosen Pengajar</button>
+          <button onclick="openLink('https://docs.google.com/spreadsheets/rekap-admin')">Rekap Administrasi</button>
+        </div>
+      </div>
+
+      <div class="card glass">
+        <div class="card-title">Surat Penelitian Mahasiswa (PDF-Drive)</div>
+        <div class="card-body">
+          <button class="drive" onclick="openLink('https://drive.google.com/drive/folders/17Z63ORG_58CxMFLt9TSIW-FOfN_hp6zx?usp=drive_link')">Undangan Seminar Proposal</button>
+          <button class="drive" onclick="openLink('https://drive.google.com/drive/folders/1u5FDSiWrgiHUYZO_aT0xhy5A3EFkqwzb?usp=drive_link')">Surat Izin Penelitian</button>
+          <button class="drive" onclick="openLink('https://drive.google.com/drive/folders/1BPVFS61H3h0HfN562QSZaovFPUKfF6j0?usp=drive_link')">Undangan Sem-Has Penelitian</button>
+        </div>
+      </div>
+
+      <div class="card glass">
+        <div class="card-title">Quick Tools</div>
+        <div class="card-body">
+          <button onclick="openLink('https://mail.google.com/mail/u/0/#inbox')">Open Gmail FEB-UPTT</button>
+          <button onclick="openLink('https://www.instagram.com/feb.uptt_/')">Open IG FEB-UPTT</button>
+          <button onclick="openLink('https://lynk.id/adm.kwu')">Open LYNK @adm.kwu</button>
+        </div>
+      </div>
+    </section>
+
+<!-- INI TAMBAHKAN DI BAWAH HEADER / SUBTITLE DASHBOARD -->
+<!-- UNTUK DATA MAHASISWA -->
+<!-- SECTION KHUSUS GRAFIK + TABEL -->
+<section class="chart-section">
+  
+  <!-- GRAFIK (65%) -->
+  <div class="chart-container glass">
+    <h4 class="chart-header">📊 Statistik Mahasiswa Berdasarkan Gender</h4>
+    <canvas id="chartMhs"></canvas>
+  </div>
+
+  <!-- TABEL (35%) -->
+  <div class="table-container glass">
+    <h4 class="table-header">📋 Rekap Data Mahasiswa</h4>
+    <table class="gender-table">
+      <thead>
+        <tr>
+          <th>Tahun</th>
+          <th>LK</th>
+          <th>PR</th>
+          <th>Jumlah</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Anda bisa kosongkan dulu nanti diinput manual via JS -->
+        <tr><td>2019</td><td>7</td><td>6</td><td>13</td></tr>
+        <tr><td>2020</td><td>10</td><td>5</td><td>15</td></tr>
+        <tr><td>2021</td><td>10</td><td>12</td><td>22</td></tr>
+        <tr><td>2022</td><td>13</td><td>8</td><td>21</td></tr>
+        <tr><td>2023</td><td>14</td><td>11</td><td>25</td></tr>
+        <tr><td>2024</td><td>15</td><td>8</td><td>23</td></tr>
+        <tr><td>2025</td><td>5</td><td>6</td><td>11</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- INI TAMBAHKAN JUGA DI BAWAHNYA (SCRIPT UNTUK GRAFIK INTERAKTIF) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('chartMhs');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['2019','2020','2021','2022','2023','2024','2025'],
+    datasets: [
+      {
+        label: 'Laki-laki',
+        data: [7,10,10,13,14,15,5],
+        tension: 0.3,
+        pointRadius: 5,
+        pointHoverRadius: 9
+      },
+      {
+        label: 'Perempuan',
+        data: [6,5,12,8,11,8,6],
+        tension: 0.3,
+        pointRadius: 5,
+        pointHoverRadius: 9
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    responsive: true,
+  maintainAspectRatio: false, // 👈 WAJIB biar bisa dipendekkan oleh CSS
+  plugins: {
+    legend: {
+      position: 'bottom',
+      labels: {
+        color: '#06b6d4', // 🔵 teks legend biru
+        font: { size: 13, weight: 600 }
+      }
+    },
+    tooltip: {
+      mode: 'nearest',
+      intersect: true,
+      displayColors:false,
+      titleColor:'#06b6d4',
+      bodyColor:'#38bdf8',
+      backgroundColor:'rgba(0,0,0,0.55)',
+      borderColor:'#06b6d4',
+      borderWidth:1,
+      animation:{ duration:300, easing:'easeOutQuad' },
+      callbacks:{
+        label: (ctx) => `${ctx.dataset.label} : ${ctx.raw} orang`
+      }
+    }
+  },
+  hover: { mode: 'nearest', intersect: true },
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: { 
+        color:'#06b6d4',   // 🔵 angka sumbu Y biru
+        font:{ size:12, weight:700 }
+      },
+      grid:{ color:'rgba(6,182,212,0.1)' }
+    },
+    x: {
+      ticks: { 
+        color:'#06b6d4',   // 🔵 angka tahun di sumbu X biru
+        font:{ size:12, weight:700 }
+      },
+      grid:{ color:'rgba(6,182,212,0.06)' }
+    }
+  }
+}
+});
+</script>
+
+    <footer class="footer">
+      <div>Made with ♥ — Offline Dashboard by Nazmul Irfandi, SE., MM.</div>
+      <hr>
+      <div class="muted">Copyright © 2025 – S1 KWU - FEB - UPTT</div>
+    </footer>
+  </main>
+
+  <!-- ===== ALARM OVERLAY (letakkan BEFORE script supaya JS bisa akses elemen) ===== -->
+  <div id="alarmOverlay" style="display:none;">
+    <div class="alarmBox">
+      <h1>⏰ Waktu Istirahat Siang</h1>
+      <p>Jangan Lupa Sholat Dzuhur dan Makan Siang !!!</p>
+      <p>Selamat Beristirahat, kembali lagi Pukul 14.00 WIB.</p>
+      <button id="closeAlarm">Tutup</button>
+    </div>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
